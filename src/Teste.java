@@ -123,7 +123,7 @@ public class Teste {
 				passeio.setCor(scan.entDados(""));
 				System.out.print("Informe a veloc. Max.: ");
 				try{
-					passeio.setVelocMax(Float.parseFloat(scan.entDados("")));
+					passeio.setVelocMax(Float.parseFloat(scan.entDados("")), passeio);
 				} catch (VelocException e) {
 					
 				}
@@ -172,7 +172,7 @@ public class Teste {
 			carga.setCor(scan.entDados(""));
 			System.out.print("Informe a veloc. Max.: ");
 			try {
-				carga.setVelocMax(Float.parseFloat(scan.entDados("")));
+				carga.setVelocMax(Float.parseFloat(scan.entDados("")), carga);
 			} catch (VelocException e) {
 				
 			}
