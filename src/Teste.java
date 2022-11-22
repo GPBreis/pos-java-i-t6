@@ -125,7 +125,7 @@ public class Teste {
 				try{
 					passeio.setVelocMax(Float.parseFloat(scan.entDados("")));
 				} catch (VelocException e) {
-
+					
 				}
 				System.out.print("Informe a qtd. de rodas: ");
 				passeio.setQtdRodas(Integer.parseInt(scan.entDados("")));
@@ -158,33 +158,40 @@ public class Teste {
 	public static Carga cCarga(Carga carga) {
 		System.out.print("Informe a placa: ");
 		try{
-			carga.setPlaca(scan.entDados(""));
+			String cPlaca = scan.entDados("");
+			if(bdVeiculos.existeCarga(cPlaca)){
+				throw new VeicExistException();
+				
+			} else {
+				carga.setPlaca(cPlaca);
+				System.out.print("Informe a marca: ");
+			carga.setMarca(scan.entDados(""));
+			System.out.print("Informe o modelo: ");
+			carga.setModelo(scan.entDados(""));
+			System.out.print("Informe a cor: ");
+			carga.setCor(scan.entDados(""));
+			System.out.print("Informe a veloc. Max.: ");
+			try {
+				carga.setVelocMax(Float.parseFloat(scan.entDados("")));
+			} catch (VelocException e) {
+				
+			}
+			System.out.print("Informe a qtd. de rodas: ");
+			carga.setQtdRodas(Integer.parseInt(scan.entDados("")));
+			System.out.print("Informe a qtd. de pistoes do motor: ");
+			carga.getMotor().setQtdPist(Integer.parseInt(scan.entDados("")));
+			System.out.print("Informe a potencia do motor: ");
+			carga.getMotor().setPotencia(Integer.parseInt(scan.entDados("")));
+			System.out.print("Informe a quantidade de carga max.: ");
+			carga.setCargaMax(Integer.parseInt(scan.entDados("")));
+			System.out.print("Informe a tara: ");
+			carga.setTara(Integer.parseInt(scan.entDados("")));
+			return carga;
+			}
 		} catch (VeicExistException e) {
-
+			return new Carga();
 		}
-		System.out.print("Informe a marca: ");
-		carga.setMarca(scan.entDados(""));
-		System.out.print("Informe o modelo: ");
-		carga.setModelo(scan.entDados(""));
-		System.out.print("Informe a cor: ");
-		carga.setCor(scan.entDados(""));
-		System.out.print("Informe a veloc. Max.: ");
-		try {
-			carga.setVelocMax(Float.parseFloat(scan.entDados("")));
-		} catch (VelocException e) {
-			
-		}
-		System.out.print("Informe a qtd. de rodas: ");
-		carga.setQtdRodas(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a qtd. de pistoes do motor: ");
-		carga.getMotor().setQtdPist(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a potencia do motor: ");
-		carga.getMotor().setPotencia(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a quantidade de carga max.: ");
-		carga.setCargaMax(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a tara: ");
-		carga.setTara(Integer.parseInt(scan.entDados("")));
-		return carga;
+		
 	}
 
 	public static void vCarga(Carga carga) {

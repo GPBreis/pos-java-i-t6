@@ -1,5 +1,3 @@
-import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
-
 public final class BDVeiculos {
 
     private Passeio[] listaPasseio;
@@ -74,5 +72,14 @@ public final class BDVeiculos {
 
     public Carga[] getListaCarga() {
         return listaCarga;
+    }
+
+    public boolean existeCarga(String placa) throws VeicExistException {
+        for(int i = 0; i < getiC(); i++){
+            if(getListaCarga()[i].getPlaca().equalsIgnoreCase(placa)){
+                return true;
+            }
+        }
+        return false;
     }
 }
