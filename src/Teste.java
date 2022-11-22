@@ -4,14 +4,13 @@ public class Teste {
 
 	public static Leitura scan = new Leitura();
 	public static String op = "";
+	public static BDVeiculos bdVeiculos = new BDVeiculos();
 
 	public static void main(String args[]) {
 
 		boolean sair = false;
-		Passeio[] p = { new Passeio(), new Passeio(), new Passeio(), new Passeio(), new Passeio() };
-		Carga[] c = { new Carga(), new Carga(), new Carga(), new Carga(), new Carga() };
 
-		BDVeiculos bdVeiculos = new BDVeiculos();
+		
 
 		while (!sair) {
 			System.out.println("Sistema de Gestão de Veículos - Menu Inicial\n");
@@ -71,15 +70,13 @@ public class Teste {
 					}
 					break;
 				case "5":
-					Passeio passeio = new Passeio();
 					boolean temPlacaP = false;
 					String passeioPlaca = scan.entDados("Informe a placa do veiculo de passeio:");
-					passeio.setPlaca(passeioPlaca);
-					for (int i = 0; i < p.length; i++) {
-						if (p[i].getPlaca().equalsIgnoreCase(passeio.getPlaca())) {
+					for (int i = 0; i < bdVeiculos.getiP(); i++) {
+						if (bdVeiculos.getListaPasseio()[i].getPlaca().equalsIgnoreCase(passeioPlaca)) {
 							temPlacaP = true;
 							System.out.println("Dados do veículo de passeio " + (i + 1));
-							vPasseio(p[i]);
+							vPasseio(bdVeiculos.getListaPasseio()[i]);
 						}
 					}
 					if (!temPlacaP) {
@@ -87,15 +84,13 @@ public class Teste {
 					}
 					break;
 				case "6":
-					Carga carga = new Carga();
 					boolean temPlacaC = false;
 					String cargaPlaca = scan.entDados("Informe a placa do veiculo de carga:");
-					carga.setPlaca(cargaPlaca);
-					for (int i = 0; i < c.length; i++) {
-						if (c[i].getPlaca().equalsIgnoreCase(carga.getPlaca())) {
+					for (int i = 0; i < bdVeiculos.getiC(); i++) {
+						if (bdVeiculos.getListaCarga()[i].getPlaca().equalsIgnoreCase(cargaPlaca)) {
 							temPlacaC = true;
 							System.out.println("Dados do veículo de carga " + (i + 1));
-							vCarga(c[i]);
+							vCarga(bdVeiculos.getListaCarga()[i]);
 						}
 					}
 					if (!temPlacaC) {
@@ -114,28 +109,38 @@ public class Teste {
 
 	public static Passeio cPasseio(Passeio passeio) {
 		System.out.print("Informe a placa: ");
-		passeio.setPlaca(scan.entDados(""));
-		System.out.print("Informe a marca: ");
-		passeio.setMarca(scan.entDados(""));
-		System.out.print("Informe o modelo: ");
-		passeio.setModelo(scan.entDados(""));
-		System.out.print("Informe a cor: ");
-		passeio.setCor(scan.entDados(""));
-		System.out.print("Informe a veloc. Max.: ");
 		try{
-			passeio.setVelocMax(Float.parseFloat(scan.entDados("")));
-		} catch (VelocException e) {
-			
+			String pPlaca = scan.entDados("");
+			if (bdVeiculos.existePasseio(pPlaca)) {
+				throw new VeicExistException();
+			} else {
+				passeio.setPlaca(pPlaca);
+				System.out.print("Informe a marca: ");
+				passeio.setMarca(scan.entDados(""));
+				System.out.print("Informe o modelo: ");
+				passeio.setModelo(scan.entDados(""));
+				System.out.print("Informe a cor: ");
+				passeio.setCor(scan.entDados(""));
+				System.out.print("Informe a veloc. Max.: ");
+				try{
+					passeio.setVelocMax(Float.parseFloat(scan.entDados("")));
+				} catch (VelocException e) {
+
+				}
+				System.out.print("Informe a qtd. de rodas: ");
+				passeio.setQtdRodas(Integer.parseInt(scan.entDados("")));
+				System.out.print("Informe a qtd. de pistoes do motor: ");
+				passeio.getMotor().setQtdPist(Integer.parseInt(scan.entDados("")));
+				System.out.print("Informe a potencia do motor: ");
+				passeio.getMotor().setPotencia(Integer.parseInt(scan.entDados("")));
+				System.out.print("Informe a quantidade de passageiros: ");
+				passeio.setQtdPassageiros(Integer.parseInt(scan.entDados("")));
+				return passeio;
+				}
+		} catch (VeicExistException e) {
+			return new Passeio();
 		}
-		System.out.print("Informe a qtd. de rodas: ");
-		passeio.setQtdRodas(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a qtd. de pistoes do motor: ");
-		passeio.getMotor().setQtdPist(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a potencia do motor: ");
-		passeio.getMotor().setPotencia(Integer.parseInt(scan.entDados("")));
-		System.out.print("Informe a quantidade de passageiros: ");
-		passeio.setQtdPassageiros(Integer.parseInt(scan.entDados("")));
-		return passeio;
+		
 	}
 
 	public static void vPasseio(Passeio passeio) {
@@ -152,7 +157,11 @@ public class Teste {
 
 	public static Carga cCarga(Carga carga) {
 		System.out.print("Informe a placa: ");
-		carga.setPlaca(scan.entDados(""));
+		try{
+			carga.setPlaca(scan.entDados(""));
+		} catch (VeicExistException e) {
+
+		}
 		System.out.print("Informe a marca: ");
 		carga.setMarca(scan.entDados(""));
 		System.out.print("Informe o modelo: ");

@@ -57,7 +57,7 @@ abstract class Veiculo {
 		return this.motor;
 	}
 	
-	public final void setPlaca(String placa){
+	public final void setPlaca(String placa) throws VeicExistException {
 		this.placa = placa;
 	}
 

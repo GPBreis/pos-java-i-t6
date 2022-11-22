@@ -1,3 +1,5 @@
+import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
+
 public final class BDVeiculos {
 
     private Passeio[] listaPasseio;
@@ -11,6 +13,14 @@ public final class BDVeiculos {
         iP = 0;
         iC = 0;
     }
+    
+    public void setiP(int iP) {
+        this.iP = iP;
+    }
+
+    public void setiC(int iC) {
+        this.iC = iC;
+    }
 
     public int getiP() {
         return iP;
@@ -21,12 +31,12 @@ public final class BDVeiculos {
     }
 
     public void addPasseio(Passeio pass) {
-        this.listaPasseio[this.iP] = pass;
-        this.iP++;
+        listaPasseio[iP] = pass;
+        iP++;
     }
 
     public boolean passeioVago() {
-        if (this.iP < this.listaPasseio.length) {
+        if (iP < listaPasseio.length) {
             return true;
         } else {
             System.out.println("Não é possível cadastrar mais veículos de passeio.");
@@ -38,22 +48,23 @@ public final class BDVeiculos {
         return listaPasseio;
     }
 
-    /*
-    public boolean existePasseio(String placa) {
+    
+    public boolean existePasseio(String placa) throws VeicExistException {
         for(int i = 0; i < getiP(); i++){
             if(getListaPasseio()[i].getPlaca().equalsIgnoreCase(placa)){
-                
-            } 
+                return true;
+            }
         }
+        return false;
     }
-*/
+
     public void addCarga(Carga c) {
-        this.listaCarga[this.iC] = c;
-        this.iC++;
+        listaCarga[iC] = c;
+        iC++;
     }
 
     public boolean cargaVago() {
-        if (this.iC < this.listaCarga.length) {
+        if (iC < listaCarga.length) {
             return true;
         } else {
             System.out.println("Não é possível cadastrar mais veículos de carga.");
