@@ -73,13 +73,13 @@ abstract class Veiculo {
 		this.cor = cor;
 	}
 
-	public final void setVelocMax(float velocMax, Veiculo veiculo) throws VelocException {
+	public final void setVelocMax(float velocMax) throws VelocException {
 		if(velocMax >= 80 && velocMax <= 110){
 			this.velocMax = velocMax;
-		} else if (veiculo instanceof Passeio) {
+		} else if (this instanceof Passeio) {
 			this.velocMax = 100.0f;
 			throw new VelocException();
-		} else if (veiculo instanceof Carga) {
+		} else if (this instanceof Carga) {
 			this.velocMax = 90.0f;
 			throw new VelocException();
 		}
